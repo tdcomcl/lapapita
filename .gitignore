@@ -1,0 +1,9 @@
+# En la raíz: mi-tienda-completa/.gitignore
+node_modules/
+.env*
+.next/
+dist/
+build/
+uploads/
+*.log
+.DS_Store
