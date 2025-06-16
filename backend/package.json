@@ -19,7 +19,8 @@
     "dev": "medusa develop",
     "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
     "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
-    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
+    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
+    "seed:categories": "ts-node src/scripts/seed-categories-simple.ts"
   },
   "dependencies": {
     "@medusajs/admin-sdk": "2.8.4",
@@ -31,6 +32,8 @@
     "@mikro-orm/migrations": "6.4.3",
     "@mikro-orm/postgresql": "6.4.3",
     "awilix": "^8.0.1",
+    "axios": "^1.10.0",
+    "dotenv": "^16.5.0",
     "pg": "^8.13.0"
   },
   "devDependencies": {

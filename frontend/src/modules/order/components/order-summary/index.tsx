@@ -39,7 +39,7 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
             </div>
           )}
           <div className="flex items-center justify-between">
-            <span>Envío desde Chile</span>
+            <span>Envío</span>
             <span>{getAmount(order.shipping_total)}</span>
           </div>
           <div className="flex items-center justify-between">

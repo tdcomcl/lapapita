@@ -12,7 +12,7 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
   return (
     <div>
       <Heading level="h2" className="flex flex-row text-3xl-regular my-6">
-        Entrega desde Chile
+        Entrega
       </Heading>
       <div className="flex items-start gap-x-8">
         <div

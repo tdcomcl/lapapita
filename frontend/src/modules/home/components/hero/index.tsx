@@ -18,60 +18,72 @@ const WhatsApp = ({ ...props }) => (
 const Hero = () => {
   return (
     <div 
-      className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle bg-cover bg-center bg-no-repeat"
+      className="h-[55vh] landscape:h-[70vh] md:h-[50vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: 'url(/papitas.jpg)'
       }}
     >
       {/* Overlay oscuro para mejorar legibilidad del texto */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <div className="max-w-4xl mx-auto">
+      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-4 landscape:px-8 md:px-8 lg:px-16 xl:px-32 py-6 landscape:py-4 md:py-8">
+        <div className="max-w-4xl mx-auto w-full">
           <Heading
             level="h1"
-            className="text-4xl leading-12 text-white font-bold mb-4 drop-shadow-lg"
+            className="text-2xl landscape:text-3xl md:text-3xl lg:text-4xl leading-tight text-white font-bold mb-3 landscape:mb-2 md:mb-4 drop-shadow-lg"
           >
             ¡Bienvenido a La Papita! 🥔
           </Heading>
           <Heading
             level="h2"
-            className="text-xl leading-8 text-gray-100 font-normal mb-6 drop-shadow-md"
+            className="text-base landscape:text-lg md:text-lg lg:text-xl leading-relaxed text-gray-100 font-normal mb-4 landscape:mb-3 md:mb-6 drop-shadow-md"
           >
             El rincón más papudo de internet donde la calidad no se negocia... ¡pero los precios sí!
           </Heading>
-          <div className="text-lg leading-7 text-white max-w-3xl mx-auto drop-shadow-md">
-            <p className="mb-4">
+          <div className="text-sm landscape:text-base md:text-base lg:text-lg leading-relaxed text-white max-w-3xl mx-auto drop-shadow-md">
+            <p className="mb-3 landscape:mb-2 md:mb-4">
               Somos como esa papita perfecta: crujiente por fuera, suave por dentro y que nunca te deja con hambre de más.
             </p>
-            <p className="mb-4">
+            <p className="mb-3 landscape:mb-2 md:mb-4 hidden landscape:block md:block">
               Aquí no vendemos humo ni cuentos chinos, solo productos de calidad a precios que no te van a dejar pelado.
             </p>
-            <p className="text-yellow-300 font-semibold">
+            <p className="text-yellow-300 font-semibold text-sm landscape:text-base md:text-base">
               📦 ¡Todos nuestros productos se envían desde Chile! 🇨🇱
             </p>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-col landscape:flex-row md:flex-row gap-3 landscape:gap-4 md:gap-4 mt-6 landscape:mt-4 md:mt-8 w-full max-w-2xl px-2 landscape:px-4 md:px-0">
           <a
             href="https://wa.me/56939573480"
             target="_blank"
             rel="noreferrer"
+            className="flex-1"
           >
-            <Button variant="secondary" className="bg-green-600 hover:bg-green-700 text-white border-green-600">
-              ¿Preguntas? ¡Mándale un wasap al papita Nico!
-              El jefe de las ofertas y rey de la buena onda
-              <WhatsApp />
+            <Button 
+              variant="secondary" 
+              className="bg-green-600 hover:bg-green-700 text-white border-green-600 w-full text-sm landscape:text-sm py-3 landscape:py-2 px-4"
+            >
+              <div className="flex flex-col landscape:flex-row md:flex-row items-center gap-1 landscape:gap-2 md:gap-2">
+                <span className="font-medium">¡Wasap a Nico!</span>
+                <span className="text-xs landscape:text-xs md:text-sm hidden landscape:inline md:inline">El jefe de ofertas</span>
+                <WhatsApp />
+              </div>
             </Button>
           </a>
           <a
             href="https://wa.me/56939573480"
             target="_blank"
             rel="noreferrer"
+            className="flex-1"
           >
-            <Button variant="secondary" className="bg-green-600 hover:bg-green-700 text-white border-green-600">
-            "¡Dale, escríbele al papita Cristian! 💬
-            Te responde más rápido que freír papas"
-              <WhatsApp />
+            <Button 
+              variant="secondary" 
+              className="bg-green-600 hover:bg-green-700 text-white border-green-600 w-full text-sm landscape:text-sm py-3 landscape:py-2 px-4"
+            >
+              <div className="flex flex-col landscape:flex-row md:flex-row items-center gap-1 landscape:gap-2 md:gap-2">
+                <span className="font-medium">¡Escribe a Cristian!</span>
+                <span className="text-xs landscape:text-xs md:text-sm hidden landscape:inline md:inline">Respuesta rápida</span>
+                <WhatsApp />
+              </div>
             </Button>
           </a>
         </div>
