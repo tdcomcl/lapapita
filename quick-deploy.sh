@@ -25,17 +25,17 @@ if ! grep -q "Ubuntu" /etc/os-release; then
     exit 1
 fi
 
-# Input rápido
-echo -e "${BLUE}Configuración rápida:${NC}"
-read -p "🌐 Tu dominio (ej: lapapita.com): " DOMAIN
-read -p "🔐 Contraseña para PostgreSQL: " -s DB_PASSWORD
-echo
-echo -e "${YELLOW}⚡ Iniciando deployment automático...${NC}"
-
-# Variables
+# Configuración automática - Sin input del usuario
+DOMAIN="lapapita.cl"
+DB_PASSWORD=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
 DB_USER="lapapita"
 DB_NAME="lapapita_db"
 APP_DIR="/home/lapapita/lapapita"
+
+echo -e "${BLUE}Configuración automática:${NC}"
+echo -e "${GREEN}🌐 Dominio: $DOMAIN${NC}"
+echo -e "${GREEN}🔐 Contraseña DB generada automáticamente${NC}"
+echo -e "${YELLOW}⚡ Iniciando deployment automático...${NC}"
 
 # Función de log
 log() { echo -e "${GREEN}[$(date +'%H:%M:%S')] $1${NC}"; }
@@ -199,6 +199,43 @@ nginx -t && systemctl restart nginx
 # Verificar servicios
 log "✅ Verificando servicios..."
 systemctl enable postgresql nginx
+
+# Guardar credenciales en archivo
+log "💾 Guardando credenciales..."
+sudo -u lapapita cat > $APP_DIR/CREDENCIALES.txt << EOF
+🚀 LA PAPITA - CREDENCIALES DEL SISTEMA
+=======================================
+Fecha de instalación: $(date)
+
+🌐 DOMINIO: $DOMAIN
+📧 Admin Panel: https://$DOMAIN/admin
+
+🗄️ BASE DE DATOS POSTGRESQL:
+• Host: localhost:5432
+• Usuario: $DB_USER
+• Contraseña: $DB_PASSWORD
+• Base de datos: $DB_NAME
+• Conexión: postgresql://$DB_USER:$DB_PASSWORD@localhost:5432/$DB_NAME
+
+🔐 SECRETS:
+• JWT_SECRET: $JWT_SECRET
+• COOKIE_SECRET: $COOKIE_SECRET
+
+📁 DIRECTORIOS:
+• Aplicación: $APP_DIR
+• Usuario del sistema: lapapita
+
+🛠️ COMANDOS ÚTILES:
+• sudo -u lapapita pm2 status
+• sudo -u lapapita pm2 logs
+• sudo -u lapapita pm2 restart all
+• sudo -u lapapita pm2 stop all
+• sudo systemctl status postgresql
+• sudo systemctl status nginx
+
+⚠️ IMPORTANTE: Guarda este archivo en lugar seguro y elimínalo del servidor después.
+EOF
+
 sleep 5
 
 echo -e "${GREEN}"
@@ -209,10 +246,20 @@ echo -e "${BLUE}🌐 Tu sitio: http://$DOMAIN${NC}"
 echo -e "${BLUE}⚙️ Admin: http://$DOMAIN/admin${NC}"
 echo -e "${YELLOW}⚠️ Para SSL: certbot --nginx -d $DOMAIN${NC}"
 echo
+echo -e "${GREEN}📋 Información de la Base de Datos:${NC}"
+echo -e "${BLUE}• Usuario: $DB_USER${NC}"
+echo -e "${BLUE}• Contraseña: $DB_PASSWORD${NC}"
+echo -e "${BLUE}• Base de datos: $DB_NAME${NC}"
+echo -e "${BLUE}• Host: localhost:5432${NC}"
+echo
+echo -e "${YELLOW}💾 Credenciales guardadas en: $APP_DIR/CREDENCIALES.txt${NC}"
+echo -e "${RED}⚠️ Descarga y elimina este archivo después de leerlo${NC}"
+echo
 echo -e "${GREEN}Comandos útiles:${NC}"
 echo "• sudo -u lapapita pm2 status"
 echo "• sudo -u lapapita pm2 logs"
 echo "• sudo -u lapapita pm2 restart all"
+echo "• cat $APP_DIR/CREDENCIALES.txt"
 
 # Instalar SSL automáticamente si es posible
 if command -v certbot >/dev/null 2>&1; then
